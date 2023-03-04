@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from database import load_jobs_from_db
+from database import load_jobs_from_db, load_job_from_db
 
 app = Flask(__name__)
 
@@ -14,9 +14,14 @@ def list_jobs():
   return jsonify(job_list)
 
 @app.route("/job/<id>")
-def list_jobs(id):
-  job = load_job_from_db()
-  return jsonify(job)  
+def list_job(id):
+  job_list = load_job_from_db(id)
+  # job_list is a LIST of DICTS of per job description
+  if not job_list:
+    return "not found", 404
+  job_detail = job_list[0]
+  # lists out 0th dict which is the job with particular <id> eg. /jobs/3
+  return render_template('jobpage.html', job = job_detail, id= id, company_name = 'Topmate')
   
 # entry point
 if __name__ == '__main__':

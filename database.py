@@ -34,4 +34,4 @@ def load_job_from_db(id):
       return None
     for row in rows:
       result_dicts.append(dict(zip(column_names, row)))
-    return (result_dicts)
+    return(result_dicts)
