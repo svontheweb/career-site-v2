@@ -10,7 +10,8 @@ def hello_world():
 
 @app.route("/api/jobs")
 def list_jobs():
-  return jsonify(JOBS)
+  job_list = load_jobs_from_db()
+  return jsonify(job_list)
   
 # entry point
 if __name__ == '__main__':
