@@ -8,23 +8,14 @@ ssl_args = {'ssl': {
 engine = create_engine(db_connection_string,
                       connect_args=ssl_args)
 
-# Connect to the database using 'with' statement
-with engine.connect() as conn:
-  result = conn.execute(text("select * from jobs"))
-  result_all = result.all()
-  column_names = result.keys() 
-  first_result = result_all[0]
-  first_result_dict = dict(zip(column_names, first_result))
-  print(first_result_dict)
-
-  # OR,
-# CREATE "LIST" OF all rows of database table with id
-with engine.connect() as conn:
-  result = conn.execute(text("select * from jobs"))
-  column_names = result.keys()
-    
-  result_dicts = []
-    
-  for row in result.all():
-    result_dicts.append(dict(zip(column_names, row)))
-  print(result_dicts)
+def load_jobs_from_db():
+  # CREATE "LIST" OF all rows of database table with id
+  with engine.connect() as conn:
+    result = conn.execute(text("select * from jobs"))
+    column_names = result.keys()
+      
+    result_dicts = []
+      
+    for row in result.all():
+      result_dicts.append(dict(zip(column_names, row)))
+    return (result_dicts)
