@@ -12,6 +12,11 @@ def hello_world():
 def list_jobs():
   job_list = load_jobs_from_db()
   return jsonify(job_list)
+
+@app.route("/job/<id>")
+def list_jobs(id):
+  job = load_job_from_db()
+  return jsonify(job)  
   
 # entry point
 if __name__ == '__main__':
