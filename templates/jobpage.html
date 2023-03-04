@@ -17,11 +17,22 @@
       <h3>{{job.title}}</h3>
       <h3 class='lead'>Location: {{job.location}}</h3>
       <h4>Responsibilities</h4>
-      <p>{{job.responsibilities}}</p>
+        <ul>
+          {%for line in job.responsibilities.split('\n'): %}
+              <li>{{line}}</li>
+          {%endfor%}
+        </ul>
       <h4>Requirements</h4>
-      <p>{{job.requirements}}</p>
-      <h4>Salary</h4>
-      <p>{{job.currency}} {{job.salary}}</p>
+        <ol>
+          {%for line in job.requirements.split('\n'): %}
+              <li>{{line}}</li>
+          {%endfor%}
+        </ol>
+      {%if job.salary != None:%}
+        <h4>Salary</h4>
+        <p>{{job.currency}} {{job.salary}}</p>
+      {%endif%}
+      
   
     </div>
   {% include 'footer.html' %}
