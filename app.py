@@ -27,7 +27,7 @@ def list_job(id):
 @app.route("/job/<id>/apply", methods=['POST'])
 def apply_job(id):
   info = request.form
-  return render_template('application_submitted.html', job = job_detail, id= id, company_name = 'Topmate')
+  return render_template('application_submitted.html', company_name = 'Topmate')
   
 # entry point
 if __name__ == '__main__':
