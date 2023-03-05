@@ -24,9 +24,9 @@ def list_job(id):
   return render_template('jobpage.html', job = job_detail, id= id, company_name = 'Topmate')
 
 
-@app.route("/job/<id>/apply")
+@app.route("/job/<id>/apply", methods=['POST'])
 def apply_job(id):
-  info = request.args
+  info = request.form
   return jsonify(info) 
   
 # entry point
