@@ -1,7 +1,9 @@
 from flask import Flask, render_template, jsonify, request
 from database import load_jobs_from_db, load_job_from_db, add_application_to_db
+from email_delivery import send_mail
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def hello_world():
@@ -29,7 +31,9 @@ def apply_job(id):
   info = request.form
   # 1. store this info in DB
   add_application_to_db(id, info)
-  # 2. send confirmation email 
+  # 2. send confirmation email
+  # send_mail() is imported from email_delivery.py file, it uses MailJest API
+  send_mail(info['email'], info['full_name'])
   
   # 3. display acknoledgement page
   # find job_details to render info
@@ -37,6 +41,8 @@ def apply_job(id):
   job_detail = job_list[0]
   job_title = job_detail['title']
   return render_template('application_submitted.html', application = info, job = job_title, company_name = 'Topmate')
+  # TODO: solve- on page-reload applicant info is submitted again to db with same data
+  
   
 # entry point
 if __name__ == '__main__':
