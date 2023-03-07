@@ -6,7 +6,7 @@ import os
 
 # send application confirmation mail to organisation AND applicant
 def send_mail(mail_to_id, mail_to_name):
-  mail_from_id = 'svontheweb@gmail.com'
+  mail_from_id = 'suontheweb@gmail.com'
   mail_from_name = 'Sujeet Verma'
   # mailjet email confirmation keys
   API_KEY = os.environ['MJ_APIKEY_PUBLIC']
