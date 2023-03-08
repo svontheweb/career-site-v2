@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_jobs_from_db, load_job_from_db, add_application_to_db
+from database import load_jobs_from_db, load_job_from_db, add_application_to_db, load_applicants_from_db
 # from email_delivery import send_mail
 from email_delivery2 import send_mail, send_mail_to_hr
 
@@ -11,11 +11,18 @@ def hello_world():
   job_list = load_jobs_from_db()
   return render_template("home.html", jobs = job_list, company_name = 'Topmate')
 
+# APIs
 @app.route("/api/jobs")
 def list_jobs():
   job_list = load_jobs_from_db()
   return jsonify(job_list)
 
+@app.route("/api/applicants")
+def list_applicants():
+  applicants_list = load_applicants_from_db()
+  return jsonify(applicants_list)
+
+# LOADING TEMPLATES
 @app.route("/job/<id>")
 def list_job(id):
   job_list = load_job_from_db(id)

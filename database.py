@@ -44,3 +44,16 @@ def add_application_to_db(job_id, application):
       ({}, '{}', '{}', '{}', '{}', '{}', '{}')""".format(job_id, application['full_name'], application['email'], application['linkedin_url'], application['education'], application['work_experience'], application['resume_url'])
                   
       conn.execute(text(query))
+
+
+def load_applicants_from_db():
+  # CREATE "LIST" OF all rows of applicationbase table with id
+  with engine.connect() as conn:
+    result = conn.execute(text("select * from applications"))
+    column_names = result.keys()
+      
+    result_dicts = []
+      
+    for row in result.all():
+      result_dicts.append(dict(zip(column_names, row)))
+    return (result_dicts)
