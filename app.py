@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_jobs_from_db, load_job_from_db, add_application_to_db, load_applicants_from_db
+from database import load_jobs_from_db, load_job_from_db, add_application_to_db, load_applications_from_db, load_applications_with_id_from_db
 # from email_delivery import send_mail
 from email_delivery2 import send_mail, send_mail_to_hr
 
@@ -17,9 +17,15 @@ def list_jobs():
   job_list = load_jobs_from_db()
   return jsonify(job_list)
 
-@app.route("/api/applicants")
-def list_applicants():
-  applicants_list = load_applicants_from_db()
+@app.route("/api/applications")
+def list_applications():
+  applications_list = load_applications_from_db()
+  return jsonify(applications_list)
+
+# finds data of applicants who applied for particular jobid
+@app.route("/api/applications/<id>")
+def find_applications_with_id(id):
+  applicants_list = load_applications_with_id_from_db(id)
   return jsonify(applicants_list)
 
 # LOADING TEMPLATES

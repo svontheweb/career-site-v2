@@ -46,7 +46,7 @@ def add_application_to_db(job_id, application):
       conn.execute(text(query))
 
 
-def load_applicants_from_db():
+def load_applications_from_db():
   # CREATE "LIST" OF all rows of applicationbase table with id
   with engine.connect() as conn:
     result = conn.execute(text("select * from applications"))
@@ -57,3 +57,20 @@ def load_applicants_from_db():
     for row in result.all():
       result_dicts.append(dict(zip(column_names, row)))
     return (result_dicts)
+
+
+def load_applications_with_id_from_db(id):
+  # CREATE "LIST" OF row with id
+  with engine.connect() as conn:
+    query = "SELECT * FROM applications WHERE job_id={}".format(id)
+    result = conn.execute(text(query))
+    column_names = result.keys()
+      
+    result_dicts = []
+    rows = result.all()
+
+    if len(rows) == 0:
+      return None
+    for row in rows:
+      result_dicts.append(dict(zip(column_names, row)))
+    return(result_dicts)
