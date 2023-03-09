@@ -9,9 +9,9 @@ import os
 def send_mail(mail_to_id, mail_to_name):
   # msg['From'] = 'Sender Name <sender@example.com>'
   # msg['To'] = 'Receiver Name <receiver@example.com>'
-  mail_from_id = 'svontheweb@gmail.com'
-  mail_from_name = 'Sujeet Verma'
-  mail_from_pass = 'iqawygegkkzzxwqg'
+  mail_from_id = os.environ['SENDER_EMAIL']
+  mail_from_name = 'HR Team'
+  mail_from_pass = os.environ['SENDER_PASSWORD']
 
   message = MIMEMultipart('alternative')
   message['Subject'] = "Application submitted!!"
